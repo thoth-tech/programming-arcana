@@ -66,7 +66,7 @@ Or if you have VS code extension installed you can use _right click_ -> _Format 
 In order to recursively format all files, you can use command:
 
 ```bash
-find . -regex '.*\.\(cpp\|hpp\|cc\|cxx\)' -exec clang-format -style=file -i {} \;
+find . -regex '.*\.\(cpp\|c\)' -exec clang-format -style=file -i {} \;
 ```
 
 # Branch Prefixes
