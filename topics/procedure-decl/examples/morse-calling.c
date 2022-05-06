@@ -50,6 +50,5 @@ int main()
     signal_q();
     
     close_audio();
-    release_all_resources();
     return 0;
 }
