@@ -1,8 +1,9 @@
 /* Program: RocketLaunch/src/main.c, SwinGame */
 
-#include "splashkit.h"
 #include <stdbool.h>
 #include <stdio.h>
+
+#include "splashkit.h"
 
 // ====================
 // = Define constants =
@@ -113,7 +114,7 @@ int main() {
 
     // Update the rocket
     update_rocket(rocket_y,
-                  thrusters_on); // parameters passed by reference (C++)
+                  thrusters_on);  // parameters passed by reference (C++)
 
     // draw the rocket on the screen!
     clear_screen();

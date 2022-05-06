@@ -13,7 +13,7 @@ The guiding principles are:
 
 We use [_clang-format_](https://clang.llvm.org/docs/ClangFormat.html) as our code format for this project.
 
-## installation
+## Installation
 
 ### Linux
 
@@ -23,7 +23,7 @@ _clang-format_ can be installed by:
 sudo apt install clang-format
 ```
 
-### MacOS
+### macOS
 
 _clang-format_ can be installed by:
 
@@ -51,7 +51,7 @@ The [VS code extension](https://marketplace.visualstudio.com/items?itemName=xave
 
 ## The format style
 
-The base format style used is _llvm_, the detailed format options is inside the file [.clang-format](/.clang-format) generated with command `clang-format -style=llvm -dump-config > .clang-format`.
+The base format style used is [_google_](https://google.github.io/styleguide/cppguide.html), the detailed format options is inside the file [.clang-format](/.clang-format) which is generated with command `clang-format -style=google -dump-config > .clang-format`.
 
 ## Usage
 
@@ -67,6 +67,48 @@ In order to recursively format all files, you can use command:
 
 ```bash
 find . -regex '.*\.\(cpp\|c\)' -exec clang-format -style=file -i {} \;
+```
+
+## Check files
+
+A python script from [Sarcasm](https://github.com/Sarcasm/run-clang-format) is used to check the files.
+
+For example, you can use check if the file _./code/c/array/array-copy.c_ needs to be formatted.
+
+```bash
+# use python instead of python3 if python version is 2
+python3 ./run-clang-format.py  ./code/c/array/array-copy.c
+```
+
+The output would be
+
+```
+--- ./code/c/array/array-copy.c (original)
++++ ./code/c/array/array-copy.c (reformatted)
+@@ -2,14 +2,13 @@
+
+ #include <string.h>
+
+-int main()
+-{
+-    int data[3] = {1, 2, 3};
+-    int other_data[3];
+-    int more_data[3];
+-
+-    memcpy(other_data, data, 3 * sizeof(int));
+-    memcpy(more_data, data, sizeof(data));
+-
+-    return 0;
++int main() {
++  int data[3] = {1, 2, 3};
++  int other_data[3];
++  int more_data[3];
++
++  memcpy(other_data, data, 3 * sizeof(int));
++  memcpy(more_data, data, sizeof(data));
++
++  return 0;
+ }%
 ```
 
 # Branch Prefixes
