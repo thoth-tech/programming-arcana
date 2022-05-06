@@ -1,4 +1,4 @@
-name: Run python
+name: Check code format
 
 on:
   push:
