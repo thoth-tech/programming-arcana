@@ -2,7 +2,7 @@
 *  Outputs audio for the CQ "Calling Anyone" signal.
 */
 #include <stdio.h>
-#include "SwinGame.h"
+#include "splashkit.h"
 
 void short_signal()
 {
@@ -36,8 +36,8 @@ void signal_q()
 
 void load_sounds()
 {
-    load_sound_effect_named("dah", "dah.wav");
-    load_sound_effect_named("dit", "dit.wav");
+    load_sound_effect("dah", "dah.wav");
+    load_sound_effect("dit", "dit.wav");
 }
 
 int main()
@@ -50,6 +50,6 @@ int main()
     signal_q();
     
     close_audio();
-    release_all_resources();
+
     return 0;
 }
