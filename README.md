@@ -51,7 +51,7 @@ The [VS code extension](https://marketplace.visualstudio.com/items?itemName=xave
 
 ## The format style
 
-The base format style used is [_google_](https://google.github.io/styleguide/cppguide.html), the detailed format options is inside the file [.clang-format](/.clang-format) which is generated with command `clang-format -style=google -dump-config > .clang-format`.
+The base format style used is [_google_](https://google.github.io/styleguide/cppguide.html).
 
 ## Usage
 
@@ -66,12 +66,12 @@ Or if you have VS code extension installed you can use _right click_ -> _Format 
 In order to recursively format all files, you can use command:
 
 ```bash
-find . -regex '.*\.\(cpp\|c\)' -exec clang-format -style=file -i {} \;
+make format
 ```
 
-## Check files
+## Validate Code
 
-A python script from [Sarcasm](https://github.com/Sarcasm/run-clang-format) is used to check the files.
+A python script from [Sarcasm](https://github.com/Sarcasm/run-clang-format) is used to validate the code.
 
 For example, you can use check if the file _./code/c/array/array-copy.c_ needs to be formatted.
 
