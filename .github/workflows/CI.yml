@@ -21,4 +21,4 @@ jobs:
       - name: run python Script
         run: |
           chmod +x ./script/run-clang-format.py
-          ./script/run-clang-format.py -rd .
+          ./script/run-clang-format.py -rq .

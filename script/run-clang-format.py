@@ -344,8 +344,6 @@ def main():
         return ExitStatus.TROUBLE
 
     retcode = ExitStatus.SUCCESS
-    if args.dry_run:
-        retcode = ExitStatus.DIFF
 
     excludes = excludes_from_file(DEFAULT_CLANG_FORMAT_IGNORE)
     excludes.extend(args.exclude)
