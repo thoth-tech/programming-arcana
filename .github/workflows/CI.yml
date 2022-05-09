@@ -15,10 +15,8 @@ jobs:
           sudo apt update
           sudo apt install -y clang-format
       - name: checkout repository content
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: setup python
         uses: actions/setup-python@v3
       - name: run python Script
-        run: |
-          chmod +x ./script/run-clang-format.py
-          ./script/run-clang-format.py -rq .
+        run: ./script/run-clang-format.py -rq .
