@@ -55,29 +55,17 @@ The base format style used is [_google_](https://google.github.io/styleguide/cpp
 
 ## Usage
 
-To use the code formatter you can use command:
-
-```bash
-clang-format -i <file name>
-```
-
-Or if you have VS code extension installed you can use _right click_ -> _Format Document With ..._ option.
-
-In order to recursively format all files, you can use command:
-
-```bash
-make format
-```
-
-## Validate Code
+### Validate Code
 
 A python script from [Sarcasm](https://github.com/Sarcasm/run-clang-format) is used to validate the code.
 
 For example, you can use check if the file _./code/c/array/array-copy.c_ needs to be formatted.
 
 ```bash
+# make the wrapped script executable
+chmod +x ./script/run-clang-format.py
 # use python instead of python3 if python version is 2
-python3 ./run-clang-format.py  ./code/c/array/array-copy.c
+./script/run-clang-format.py  ./code/c/array/array-copy.c
 ```
 
 The output would be
@@ -109,6 +97,33 @@ The output would be
 +
 +  return 0;
  }%
+```
+
+\*Python3 is normally installed as default package for most operation systems. However, if you are using windows and do not want to install Python. You can use:
+`clang-format .\code\c\array\array-copy.c `, but it would not have the feature in the wrapped script e.g. color.
+
+### Replace the Old Code with Formatted Code
+
+For a single you can use command:
+
+```bash
+clang-format -i <file name>
+```
+
+Or if you have VS code extension installed you can use _right click_ -> _Format Document With ..._ option.
+
+In order to recursively format all files, you can use:
+
+```powershell
+# windows user
+# using powershell
+Get-ChildItem -recurse -path .\* -include *.c, *.cpp| ForEach-Object{clang-format -style=file -i $_}
+```
+
+```bash
+# linux or macOS
+# using wrapped script
+./script/run-clang-format.py -ri .
 ```
 
 # Branch Prefixes
