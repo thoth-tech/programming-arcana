@@ -55,22 +55,20 @@ The base format style used is [_google_](https://google.github.io/styleguide/cpp
 
 ## Usage
 
-### Validate Code
+### Validate code
 
 A python script from [Sarcasm](https://github.com/Sarcasm/run-clang-format) is used to validate the code.
 
 For example, you can use check if the file _./code/c/array/array-copy.c_ needs to be formatted.
 
 ```bash
-# make the wrapped script executable
-chmod +x ./script/run-clang-format.py
 # use python instead of python3 if python version is 2
 ./script/run-clang-format.py  ./code/c/array/array-copy.c
 ```
 
 The output would be
 
-```
+```diff
 --- ./code/c/array/array-copy.c (original)
 +++ ./code/c/array/array-copy.c (reformatted)
 @@ -2,14 +2,13 @@
@@ -99,12 +97,12 @@ The output would be
  }%
 ```
 
-\*Python3 is normally installed as default package for most operation systems. However, if you are using windows and do not want to install Python. You can use:
-`clang-format .\code\c\array\array-copy.c `, but it would not have the feature in the wrapped script e.g. color.
+\*Python3 is normally installed as a default package in most operating systems. However, if you are using Windows and do not want to install Python, you can use
+`clang-format .\code\c\array\array-copy.c `. However, it would not have the feature in the wrapper script, for example, coloured output.
 
-### Replace the Old Code with Formatted Code
+### Format code
 
-For a single you can use command:
+For a single file you can use command:
 
 ```bash
 clang-format -i <file name>
@@ -121,12 +119,12 @@ Get-ChildItem -recurse -path .\* -include *.c, *.cpp| ForEach-Object{clang-forma
 ```
 
 ```bash
-# linux or macOS
+# need python3 installed
 # using wrapped script
 ./script/run-clang-format.py -ri .
 ```
 
-# Branch Prefixes
+# Branch prefixes
 
 When branching, try to prefix your branch with one of the following:
 
@@ -142,7 +140,7 @@ When branching, try to prefix your branch with one of the following:
 | `speed/`   | Performance-related improvements                                          | `speed/new-algorithm-to-process-foo`       |
 | `test/`    | Test addition or enhancement                                              | `test/unit-tests-for-new-feature-x`        |
 
-# Commit Message Format
+# Commit message format
 
 We have precise rules over how our Git commit messages must be formatted. This format makes it easier to read the commit history.
 
