@@ -19,4 +19,4 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v3
       - name: clang format check
-        run: ./script/run-clang-format.py -rq .
+        run: ./script/run-clang-format.py -r .
