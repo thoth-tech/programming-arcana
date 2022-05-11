@@ -241,6 +241,10 @@ def print_diff(diff_lines, use_color):
         sys.stdout.writelines(diff_lines)
 
 
+def print_filename(diff_lines):
+    print(diff_lines[0].split()[1] + '\n')
+
+
 def print_trouble(prog, message, use_colors):
     error_text = 'error:'
     if use_colors:
@@ -265,6 +269,11 @@ def main():
         '--recursive',
         action='store_true',
         help='run recursively over directories')
+    parser.add_argument(
+        '-l',
+        '--list',
+        action='store_true',
+        help='print the names of files that would be formatted')
     parser.add_argument(
         '-d',
         '--dry-run',
@@ -395,8 +404,12 @@ def main():
             sys.stderr.writelines(errs)
             if outs == []:
                 continue
-            if not args.quiet:
+            if not args.quiet and not args.list:
                 print_diff(outs, use_color=colored_stdout)
+            if args.list:
+                print_filename(outs)
+            if retcode == ExitStatus.SUCCESS:
+                retcode = ExitStatus.DIFF
     if pool:
         pool.join()
     return retcode
