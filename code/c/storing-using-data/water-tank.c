@@ -1,4 +1,4 @@
-#include "SwinGame.h"
+#include "splashkit.h"
 
 #define MAX_HEIGHT 400
 #define MAX_WIDTH 200
@@ -21,28 +21,26 @@ void draw_water_tank(float x, float y, int width, int height, float pct_full)
     
     // Water...
     // Bottom ellipse
-    fill_ellipse(ColorBlue, x, bottom_ellipse_y, width, ellipse_height);
-    draw_ellipse(ColorBlack, x, bottom_ellipse_y, width, ellipse_height);
+    fill_ellipse(color_blue(), x, bottom_ellipse_y, width, ellipse_height);
+    draw_ellipse(color_black(), x, bottom_ellipse_y, width, ellipse_height);
     // Body - center of cylinder
-    fill_rectangle(ColorBlue, x, water_y, width, water_height);
+    fill_rectangle(color_blue(), x, water_y, width, water_height);
     //Top ellipse
-    fill_ellipse(ColorBlue, x, top_ellipse_y, width, ellipse_height);
-    draw_ellipse(ColorBlack, x, top_ellipse_y, width, ellipse_height);
+    fill_ellipse(color_blue(), x, top_ellipse_y, width, ellipse_height);
+    draw_ellipse(color_black(), x, top_ellipse_y, width, ellipse_height);
     
     // Frame
-    draw_ellipse(ColorBlack, x, y, width, ellipse_height);
-    draw_line(ColorBlack, x, y + ellipse_height / 2, x, bottom_ellipse_y + ellipse_height / 2);
-    draw_line(ColorBlack, x + width, y + ellipse_height / 2, x + width, bottom_ellipse_y + ellipse_height / 2);
+    draw_ellipse(color_black(), x, y, width, ellipse_height);
+    draw_line(color_black(), x, y + ellipse_height / 2, x, bottom_ellipse_y + ellipse_height / 2);
+    draw_line(color_black(), x + width, y + ellipse_height / 2, x + width, bottom_ellipse_y + ellipse_height / 2);
     
 }
 
 int main(int argc, char* argv[])
 {
-    open_audio();
-    open_graphics_window("Water Tanks", 800, 600);
-    load_default_colors();
-    
-    clear_screen(ColorWhite);
+    open_window("Water Tanks", 800, 600);
+
+    clear_screen(color_white());
     draw_water_tank(10, 50, 100, 200, 0.75);
     draw_water_tank(150, 50, 100, 300, 0.0);
     draw_water_tank(300, 50, 70, 100, 0.25);
@@ -50,8 +48,5 @@ int main(int argc, char* argv[])
     refresh_screen();
     
     delay(5000);
-
-    release_all_resources();
-    close_audio();
     return 0;
 }

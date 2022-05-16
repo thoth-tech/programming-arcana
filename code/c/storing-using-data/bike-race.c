@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "SwinGame.h"
+#include "splashkit.h"
 
 // ====================
 // = Define constants =
@@ -75,26 +75,21 @@ void draw_bike(color bike_color, float x, float y)
 // Run the bike race...
 int main()
 {
-    open_audio();
-    open_graphics_window("Bicycle Race...", 800, 600);
-    load_default_colors();
+    open_window("Bicycle Race...", 800, 600);
     
     clear_screen();
     
-    draw_bike(ColorRed, bike_x_for_accel(random_accel()), 10);
-    draw_bike(ColorGreen, bike_x_for_accel(random_accel()), 60);
-    draw_bike(ColorBlue, bike_x_for_accel(random_accel()), 110);
-    draw_bike(rgbcolor(127, 127, 0), bike_x_for_accel(random_accel()), 160);
-    draw_bike(rgbcolor(127, 127, 127), bike_x_for_accel(random_accel()), 210);
-    draw_bike(rgbcolor(255, 255, 255), bike_x_for_accel(random_accel()), 260);
+    draw_bike(color_red(), bike_x_for_accel(random_accel()), 10);
+    draw_bike(color_green(), bike_x_for_accel(random_accel()), 60);
+    draw_bike(color_blue(), bike_x_for_accel(random_accel()), 110);
+    draw_bike(rgb_color(127, 127, 0), bike_x_for_accel(random_accel()), 160);
+    draw_bike(rgb_color(127, 127, 127), bike_x_for_accel(random_accel()), 210);
+    draw_bike(rgb_color(0, 0, 0), bike_x_for_accel(random_accel()), 260);
     draw_bike(random_color(), bike_x_for_accel(random_accel()), 310);
     
     refresh_screen();
     
     delay(5000);
     
-    close_audio();
-    
-    release_all_resources();
     return 0;
 }

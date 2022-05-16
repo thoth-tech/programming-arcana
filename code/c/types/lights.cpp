@@ -1,8 +1,9 @@
-/* Program: lights (C++, SwinGame) */
+/* Program: lights (C++, Splashkit) */
 #include <stdbool.h>
 #include <strings.h>
 #include <stdio.h>
-#include "SwinGame.h"
+#include <cstring>
+#include "splashkit.h"
 
 // =====================
 // = Delcare Constants =
@@ -27,7 +28,7 @@ typedef struct
 {
     bool        is_on;      // is the light on?
     light_size  size;       // size of the light
-    point2d     position;   // location of the light (top left)
+    point_2d     position;   // location of the light (top left)
 } light;
 
 
@@ -36,7 +37,7 @@ typedef struct
 // ====================================
 
 // Sets up a new light, and returns its data
-light create_light(bool on, light_size sz, point2d pos)
+light create_light(bool on, light_size sz, point_2d pos)
 {
     light result;
     
@@ -56,13 +57,13 @@ bitmap light_bitmap(light &l)
     switch (l.size)
     {
         case SMALL_LIGHT:
-            strncat(name, "small light", 11);
+            strncat(name, "small light", 14);
             break;
         case MEDIUM_LIGHT:
-            strncat(name, "medium light", 12);
+            strncat(name, "medium light", 14);
             break;
         case LARGE_LIGHT:
-            strncat(name, "large light", 11);
+            strncat(name, "large light", 14);
             break;
         default:
             return NULL;
@@ -70,9 +71,9 @@ bitmap light_bitmap(light &l)
     
     // the end of the name is based on if the light is on/off
     if (l.is_on)
-        strncat(name, " on", 4);
+        strncat(name, " on", 6);
     else
-        strncat(name, " off", 4);
+        strncat(name, " off", 6);
     
     // return the bitmap with that name
     return bitmap_named(name);    
@@ -81,7 +82,7 @@ bitmap light_bitmap(light &l)
 // Draw the light "l" to the screen
 void draw_light(light &l)
 {
-    draw_bitmap(light_bitmap(l), l.position);
+    draw_bitmap(light_bitmap(l), l.position.x, l.position.y);
 }
 
 // Draw all of the lights in "lights"
@@ -98,7 +99,7 @@ void draw_lights(light lights[], int count)
 // Is the light currently under the mouse?
 bool light_under_mouse(light &l)
 {
-    point2d mouse;
+    point_2d mouse;
     bitmap light_bmp;
     
     // get the mouse position
@@ -108,7 +109,7 @@ bool light_under_mouse(light &l)
     
     // Simple version using a bounded rectangle
     //return point_in_rect(mouse, bitmap_rectangle(l.position.x, l.position.y, light_bmp));
-    return bitmap_point_collision(light_bmp, l.position.x, l.position.y, mouse);
+    return bitmap_point_collision(light_bmp, l.position, mouse);
 }
 
 // Check if the lights have been changed (clicked)
@@ -136,14 +137,14 @@ void update_lights(light lights[], int count)
 void load_bitmaps()
 {
     // Load "on" lights
-    load_bitmap_named("small light on", "on_sml.png");
-    load_bitmap_named("medium light on", "on_med.png");
-    load_bitmap_named("large light on", "on.png");
+    load_bitmap("small light on", "on_sml.png");
+    load_bitmap("medium light on", "on_med.png");
+    load_bitmap("large light on", "on.png");
     
     // Load "off" lights
-    load_bitmap_named("small light off", "off_sml.png");
-    load_bitmap_named("medium light off", "off_med.png");
-    load_bitmap_named("large light off", "off.png");    
+    load_bitmap("small light off", "off_sml.png");
+    load_bitmap("medium light off", "off_med.png");
+    load_bitmap("large light off", "off.png"); 
 }
 
 // ======================
@@ -155,9 +156,7 @@ int main(int argc, char* argv[])
     // Create a number of lights
     light lights[NUM_LIGHTS];
     
-    open_audio();
-    open_graphics_window("Lights", 800, 600);
-    load_default_colors();
+    open_window("Lights", 800, 600);
     
     load_bitmaps();
     
@@ -176,9 +175,9 @@ int main(int argc, char* argv[])
         clear_screen();
         draw_lights(lights, NUM_LIGHTS);
         refresh_screen();
-    } while ( ! window_close_requested() );
+        
+    } while ( ! quit_requested() );
 
-    release_all_resources();
-    close_audio();
+
     return 0;
 }

@@ -1,14 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "SwinGame.h"
+#include "splashkit.h"
 
 #define BUBBLE_COUNT 10
-
-// Load the bubble image
-void load_resources()
-{
-    load_bitmap_named("bubble", "bubble.png");
-}
 
 // Place a bubble somewhere on the screen, 
 // and give it a random movement
@@ -21,17 +15,12 @@ void place_bubble(sprite bubble)
 }
 
 // Create bubbles, and place them on the screen to start
-void populate_bubbles(sprite bubbles[], int sz)
+void populate_bubbles(sprite bubbles[], int sz, bitmap bubble)
 {
     int i;
-    int bubble_width, bubble_height;
-    
-    bubble_width = bitmap_width(bitmap_named("bubbles"));
-    bubble_height = bitmap_height(bitmap_named("bubbles"));
-    
     for (i = 0; i < sz; i++)
     {
-        bubbles[i] = create_sprite(bitmap_named("bubble"));
+        bubbles[i] = create_sprite(bubble);
         place_bubble(bubbles[i]);
     }
 }
@@ -51,7 +40,6 @@ void update_bubble(sprite bubble)
 void update_bubbles(sprite bubbles[], int sz)
 {
     int i;
-    
     for (i = 0; i < sz; i++)
     {
         update_bubble(bubbles[i]);
@@ -62,7 +50,6 @@ void update_bubbles(sprite bubbles[], int sz)
 void draw_bubbles(sprite bubbles[], int sz)
 {
     int i;
-    
     for (i = 0; i < sz; i++)
     {
         draw_sprite(bubbles[i]);
@@ -75,13 +62,11 @@ int main()
 {
     // Create an array of bubbles
     sprite bubbles[BUBBLE_COUNT];
-    
-    open_audio();
-    open_graphics_window("Bubble Pop!", 800, 600);
-    load_default_colors();
-    
-    load_resources();
-    populate_bubbles(bubbles, BUBBLE_COUNT);    // Load the bubbles
+    open_window("Bubble Pop!", 800, 600);
+
+    //Load and populate the bubble bitmap
+    bitmap bubble = load_bitmap("bubble", "Resources/images/bubble.png");
+    populate_bubbles(bubbles, BUBBLE_COUNT, bubble);    // Load the bubbles
     
     do
     {
@@ -91,15 +76,11 @@ int main()
         
         // Draw the game
         clear_screen();
-        
-        draw_framerate(0,0);
         draw_bubbles(bubbles, BUBBLE_COUNT);
         
-        refresh_screen();
-    } while ( ! window_close_requested() );
-    
-    close_audio();
-    
-    release_all_resources();
+        refresh_screen(60);
+
+    } while ( ! quit_requested() );
+
     return 0;
 }

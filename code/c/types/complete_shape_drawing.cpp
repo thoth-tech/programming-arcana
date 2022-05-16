@@ -1,10 +1,10 @@
 /*
-* Program: Shape Drawer - SwinGame source file.
+* Program: Shape Drawer - Splashkit source file.
 */
 
 #include <stdio.h>
 #include <stdbool.h>
-#include "SwinGame.h"
+#include "splashkit.h"
 
 // =====================
 // = Declare Constants =
@@ -14,7 +14,7 @@
 // Menu Shape Constants
 const rectangle MENU_RECT = {10,250,40,50};
 const circle	MENU_CIRCLE = {{30,100},20};
-const triangle  MENU_TRIANGLE = {{30,150},{10,200},{50,200}};
+const triangle  MENU_TRIANGLE = triangle_from(30,150,10,200,50,200);
 const rectangle MENU_ELLIPSE = {10,350,40,50};
 const rectangle DRAWING_PAD = {61,0,790,600};
 
@@ -29,7 +29,8 @@ typedef enum
 	TRIANGLE,
 	RECTANGLE,
 	ELLIPSE,
-	UNKNOWN
+	//UNKNOWN
+	NONE
 } shape_type;
 
 // The Shape Data is either...
@@ -71,30 +72,30 @@ typedef struct
 void draw_shapes_menu(shape_type selected_shape)
 {
     // Draw the "toolbar" area
-	fill_rectangle(ColorLightGrey,0,0,60,600);
+	fill_rectangle(color_light_gray(),0,0,60,600);
 	
 	// Draw the menu shapes.
-	fill_circle(ColorGreen, MENU_CIRCLE);
-	fill_triangle(ColorGreen, MENU_TRIANGLE);
-	fill_rectangle(ColorGreen, MENU_RECT);
-	fill_ellipse(ColorGreen, MENU_ELLIPSE);
+	fill_circle(color_green(), MENU_CIRCLE);
+	fill_triangle(color_green(), MENU_TRIANGLE);
+	fill_rectangle(color_green(), MENU_RECT);
+	fill_ellipse(color_green(), MENU_ELLIPSE);
 	
 	// Redraw the selected shape
 	switch(selected_shape)
 	{
 	    case RECTANGLE: 
-	        draw_rectangle(ColorBlack, MENU_RECT);
+	        draw_rectangle(color_black(), MENU_RECT);
             break;
         case TRIANGLE:
-		    draw_triangle(ColorBlack, MENU_TRIANGLE);
+		    draw_triangle(color_black(), MENU_TRIANGLE);
             break;
         case CIRCLE:
-		    draw_circle(ColorBlack, MENU_CIRCLE);
+		    draw_circle(color_black(), MENU_CIRCLE);
             break;
         case ELLIPSE:
-            draw_ellipse(ColorBlack, MENU_ELLIPSE);
+            draw_ellipse(color_black(), MENU_ELLIPSE);
             break;
-        case UNKNOWN:
+        case NONE:
             break;
         // Do nothing for default...
 	}
@@ -117,7 +118,7 @@ void draw_shape(shape &s)
 		case ELLIPSE:
 			fill_ellipse(s.fill_color,s.data.ellipse);
 			break;
-		case UNKNOWN:
+		case NONE:
 			break;
 	}//end switch
 }
@@ -126,7 +127,7 @@ void draw_shape(shape &s)
 void do_drawing(drawing &d)
 {	
     // Clear screen and redraw menu
-    clear_screen(ColorWhite);
+    clear_screen();
     draw_shapes_menu(d.selected_shape);
     
 	// Draw the shapes
@@ -141,11 +142,11 @@ void do_drawing(drawing &d)
 // ============================
 
 // Add a rectangle to the drawing
-void add_rectangle(shape &s, point2d pt)
+void add_rectangle(shape &s, point_2d pt)
 {
     // Set the shape
 	s.type = RECTANGLE;
-	s.fill_color = ColorRed;
+	s.fill_color = color_red();
 	
 	// Copy in the menu rectangle
 	s.data.rect = MENU_RECT;
@@ -156,11 +157,11 @@ void add_rectangle(shape &s, point2d pt)
 }
 
 // Add a circle to the drawing
-void add_circle(shape &s, point2d pt)
+void add_circle(shape &s, point_2d pt)
 {
     // Set the shape
 	s.type = CIRCLE;
-	s.fill_color = ColorBlue;
+	s.fill_color = color_blue();
 	
 	// Copy in the menu circle radius
 	s.data.circ.radius = MENU_CIRCLE.radius;
@@ -169,33 +170,30 @@ void add_circle(shape &s, point2d pt)
 	s.data.circ.center = pt;
 }//add circle
 
-// Add a triangle to the drawing
-void add_triangle(shape &s, point2d pt)
+//Add a triangle to the drawing
+void add_triangle(shape &s, point_2d pt)
 {
-	point2d pt1;
-	
 	// Set the type and color
 	s.type = TRIANGLE;
-	s.fill_color = ColorYellow;
+	s.fill_color = color_yellow();
 	
 	// Set point 1 to pt
-	s.data.tri[0] = pt;
+	s.data.tri.points[0] = pt;
 	
 	// Offset point -20 x, 50 y
-	pt1.x = -20;
-	pt1.y = 50;
-	s.data.tri[1] = point_add(pt, pt1);
+	s.data.tri.points[1].x = pt.x - 20;
+	s.data.tri.points[1].y = pt.y + 50;
 	
 	// Offset point 20 x, 50 y
-	pt1.x = 20;
-	s.data.tri[2] = point_add(pt, pt1);
+	s.data.tri.points[2].x = pt.x + 20;
+	s.data.tri.points[2].y = pt.y + 50;
 }//add triangle
 
-void add_ellipse(shape &s, point2d pt)
+void add_ellipse(shape &s, point_2d pt)
 {
     // Setup the shape
 	s.type = ELLIPSE;
-	s.fill_color = ColorGreen;
+	s.fill_color = color_green();
 	
 	// Copy in menu ellipse
 	s.data.ellipse = MENU_ELLIPSE;
@@ -208,38 +206,38 @@ void add_ellipse(shape &s, point2d pt)
 //input processing procedures
 bool process_key(drawing &d)
 {
-	if(key_down(VK_Q)) return true;
-	if(key_down(VK_C))
+	if(key_down(Q_KEY)) return true;
+	if(key_down(C_KEY))
 	{
 		d.index = 0;
-		for(int i = 0; i < MAX_SHAPES ;++i) d.shapes[i].type = UNKNOWN;
+		for(int i = 0; i < MAX_SHAPES ;++i) d.shapes[i].type = NONE;
 	}
 	return false;	
 }
 
 // Check if the user has clicked in a shape in the toolbar
-void process_menu_click(drawing &d, point2d pt)
+void process_menu_click(drawing &d, point_2d pt)
 {	
-	if(point_in_rect(&pt,&MENU_RECT))
+	if(point_in_rectangle(pt,MENU_RECT))
 	{
 		d.selected_shape = RECTANGLE;
 	}
-	if(point_in_triangle(&pt,MENU_TRIANGLE))
+	if(point_in_triangle(pt,MENU_TRIANGLE))
 	{
 		d.selected_shape = TRIANGLE;
 	}
-	if(point_in_circle(&pt,&MENU_CIRCLE))
+	if(point_in_circle(pt,MENU_CIRCLE))
 	{
 		d.selected_shape = CIRCLE;
 	}
-	if(point_in_rect(&pt,&MENU_ELLIPSE))
+	if(point_in_rectangle(pt,MENU_ELLIPSE))
 	{
 		d.selected_shape = ELLIPSE;
 	}
 }
 
 // Add a shape to the canvas
-void process_canvas_click(drawing &d, point2d pt)
+void process_canvas_click(drawing &d, point_2d pt)
 {
     // Try to add a shape... is the current index < maximum?
 	if(d.index < MAX_SHAPES)
@@ -274,7 +272,7 @@ bool process_input(drawing &d)
 {
 	if(mouse_clicked(LEFT_BUTTON))
 	{
-		point2d pt = mouse_position();
+		point_2d pt = mouse_position();
 		
 		if(pt.x < 60) 	
 		    process_menu_click(d,pt);
@@ -283,7 +281,7 @@ bool process_input(drawing &d)
 	}//if LEFT BUTTON
 	
 	if(any_key_pressed())  
-	    return process_key(d);
+	    return true;
 	else
 		return false;
 }//process input
@@ -296,7 +294,7 @@ void setup_drawing(drawing &d)
     // All shapes are unknown...
 	for(int i = 0; i < MAX_SHAPES ;++i) 
 	{
-	    d.shapes[i].type = UNKNOWN;
+	    d.shapes[i].type = NONE;
     }
 }
 
@@ -310,8 +308,7 @@ int main()
 	// Initialise the drawing with empty data...
     setup_drawing(my_drawing);
 			
-    open_graphics_window("Draw Shapes", 800, 500);
-    load_default_colors();
+    open_window("Draw Shapes", 800, 500);
     
     do
     {
@@ -320,9 +317,8 @@ int main()
 		
 		do_drawing(my_drawing);
         refresh_screen();
-    } while ( ! window_close_requested() && !quit);
-     
-    release_all_resources();
+    } while ( ! quit_requested() && !quit);
+
     return 0;
 }
 
