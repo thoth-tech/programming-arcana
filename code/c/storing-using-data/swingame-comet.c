@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "SwinGame.h"
+#include "splashkit.h"
 
 // Constant values
 #define ECCENTRICITY 0.995f
 #define DISTANCE_POLE_DIRECTRIX 1.828f
 #define SUN_X 10
 #define SUN_Y 300
-#define SUN_RADIUS 2
-#define COMET_RADIUS 1
+#define SUN_RADIUS 30
+#define COMET_RADIUS 4
 #define MAX_DISTANCE 380.0f
 
 #define MIN_WAIT 100
@@ -62,12 +62,12 @@ void draw_comet(float angle)
     
     printf("Comet position (%f deg): %.1f,%.1f = %.1f,%.1f\n", angle, comet_x, comet_y, screen_x, screen_y);
     
-    fill_circle(ColorWhite, screen_x, screen_y, COMET_RADIUS);
+    fill_circle(color_white(), screen_x, screen_y, COMET_RADIUS);
 }
 
 void draw_sun()
 {
-    fill_circle(ColorYellow, SUN_X, SUN_Y, SUN_RADIUS);
+    fill_circle(color_yellow(), SUN_X, SUN_Y, SUN_RADIUS);
 }
 
 void delay_for_angle(float angle)
@@ -81,7 +81,7 @@ void delay_for_angle(float angle)
 
 void draw_system(float angle)
 {
-    clear_screen();
+    clear_screen(color_black());
     draw_sun();
     draw_comet(angle);
     refresh_screen();
@@ -90,9 +90,7 @@ void draw_system(float angle)
 
 int main()
 {
-    open_audio();
-    open_graphics_window("Hale-Bopp's Orbit", 800, 600);
-    load_default_colors();
+    open_window("Hale-Bopp's Orbit", 800, 600);
     
     draw_system(0);
     draw_system(45);
@@ -119,8 +117,5 @@ int main()
     draw_system(340);
     draw_system(360);
 
-    close_audio();
-    
-    release_all_resources();
     return 0;
 }
