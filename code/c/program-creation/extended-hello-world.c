@@ -1,13 +1,12 @@
-/* 
-*  Program: output_test.c
-*  Writes some messages to the Terminal.
-*/
+/*
+ *  Program: output_test.c
+ *  Writes some messages to the Terminal.
+ */
 #include "splashkit.h"
 
 using namespace std;
 
-int main()
-{
+int main() {
   // Output the messages...
   write_line("Output Test Program\n");
   write_line(" 1 + 1 = " + to_string(1 + 1) ;

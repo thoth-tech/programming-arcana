@@ -1,7 +1,8 @@
 /* Program: bike-race.c, SwinGame */
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+
 #include "splashkit.h"
 
 // ====================
@@ -21,51 +22,46 @@
 
 // Calculate the distance travelled given acceleration and time
 // distance = ut + ((at^2) / 2)
-float distance_travelled(float initial_speed, float acceleration, float time)
-{
-    return (initial_speed * time) + ((acceleration * time * time) / 2);
+float distance_travelled(float initial_speed, float acceleration, float time) {
+  return (initial_speed * time) + ((acceleration * time * time) / 2);
 }
 
 // Calculate the x position of a bike accelerating at the given
-// acceleration for the duration of the race 
-float bike_x_for_accel(float acceleration)
-{
-    float distance;
-    
-    distance = distance_travelled(0, acceleration, RACE_DURATION);
-    
-    return distance * X_SCALE_FACTOR;
+// acceleration for the duration of the race
+float bike_x_for_accel(float acceleration) {
+  float distance;
+
+  distance = distance_travelled(0, acceleration, RACE_DURATION);
+
+  return distance * X_SCALE_FACTOR;
 }
 
-// Come up with a random acceleration value for a bike between 0 and 
+// Come up with a random acceleration value for a bike between 0 and
 // MAX_ACCELERATION
-float random_accel()
-{
-    return rnd() * MAX_ACCELERATION;
-}
+float random_accel() { return rnd() * MAX_ACCELERATION; }
 
 // ==============
 // = Procedures =
 // ==============
 
 // Draw the bike to the screen in the given color
-void draw_bike(color bike_color, float x, float y)
-{
-    float left_wheel_x, right_wheel_x, wheel_y;
-    float seat_x, seat_y;
-    
-    left_wheel_x  = x + WHEEL_SIZE;
-    right_wheel_x = left_wheel_x + WHEEL_SIZE * 2 + WHEEL_GAP;
-    
-    wheel_y = y + WHEEL_SIZE + SEAT_GAP;
-    
-    seat_x = (right_wheel_x - left_wheel_x) / 2.0f + left_wheel_x;
-    seat_y = y + SEAT_GAP;
-    
-    draw_circle(bike_color, left_wheel_x, wheel_y, WHEEL_SIZE);
-    draw_circle(bike_color, right_wheel_x, wheel_y, WHEEL_SIZE);
-    draw_triangle(bike_color, left_wheel_x, wheel_y, right_wheel_x, wheel_y, seat_x, seat_y);
-    draw_line(bike_color, right_wheel_x, wheel_y, right_wheel_x, y);
+void draw_bike(color bike_color, float x, float y) {
+  float left_wheel_x, right_wheel_x, wheel_y;
+  float seat_x, seat_y;
+
+  left_wheel_x = x + WHEEL_SIZE;
+  right_wheel_x = left_wheel_x + WHEEL_SIZE * 2 + WHEEL_GAP;
+
+  wheel_y = y + WHEEL_SIZE + SEAT_GAP;
+
+  seat_x = (right_wheel_x - left_wheel_x) / 2.0f + left_wheel_x;
+  seat_y = y + SEAT_GAP;
+
+  draw_circle(bike_color, left_wheel_x, wheel_y, WHEEL_SIZE);
+  draw_circle(bike_color, right_wheel_x, wheel_y, WHEEL_SIZE);
+  draw_triangle(bike_color, left_wheel_x, wheel_y, right_wheel_x, wheel_y,
+                seat_x, seat_y);
+  draw_line(bike_color, right_wheel_x, wheel_y, right_wheel_x, y);
 }
 
 // ======================
@@ -73,23 +69,22 @@ void draw_bike(color bike_color, float x, float y)
 // ======================
 
 // Run the bike race...
-int main()
-{
-    open_window("Bicycle Race...", 800, 600);
-    
-    clear_screen();
-    
-    draw_bike(color_red(), bike_x_for_accel(random_accel()), 10);
-    draw_bike(color_green(), bike_x_for_accel(random_accel()), 60);
-    draw_bike(color_blue(), bike_x_for_accel(random_accel()), 110);
-    draw_bike(rgb_color(127, 127, 0), bike_x_for_accel(random_accel()), 160);
-    draw_bike(rgb_color(127, 127, 127), bike_x_for_accel(random_accel()), 210);
-    draw_bike(rgb_color(0, 0, 0), bike_x_for_accel(random_accel()), 260);
-    draw_bike(random_color(), bike_x_for_accel(random_accel()), 310);
-    
-    refresh_screen();
-    
-    delay(5000);
-    
-    return 0;
+int main() {
+  open_window("Bicycle Race...", 800, 600);
+
+  clear_screen();
+
+  draw_bike(color_red(), bike_x_for_accel(random_accel()), 10);
+  draw_bike(color_green(), bike_x_for_accel(random_accel()), 60);
+  draw_bike(color_blue(), bike_x_for_accel(random_accel()), 110);
+  draw_bike(rgb_color(127, 127, 0), bike_x_for_accel(random_accel()), 160);
+  draw_bike(rgb_color(127, 127, 127), bike_x_for_accel(random_accel()), 210);
+  draw_bike(rgb_color(0, 0, 0), bike_x_for_accel(random_accel()), 260);
+  draw_bike(random_color(), bike_x_for_accel(random_accel()), 310);
+
+  refresh_screen();
+
+  delay(5000);
+
+  return 0;
 }

@@ -1,7 +1,7 @@
 /*
-* Program: tell-joke.c
-* Tell a joke using a number of procedures.
-*/
+ * Program: tell-joke.c
+ * Tell a joke using a number of procedures.
+ */
 
 void setup_joke();
 {
@@ -12,9 +12,7 @@ void setup_joke();
 }
 
 void pause_for_dramatic_effect();
-{
-    printf(".. pause ..\n");
-}
+{ printf(".. pause ..\n"); }
 
 void punch_line();
 {
@@ -29,25 +27,19 @@ void tell_joke();
 }
 
 void ha();
-{
-  printf("ha");
-}
+{ printf("ha"); }
 
 void ha_ha();
 {
-  ha(); 
+  ha();
   ha();
 }
 
 void he_he();
-{
-  printf("he_he");
-}
+{ printf("he_he"); }
 
 void ah();
-{
-  printf("ah");
-}
+{ printf("ah"); }
 
 void ha_hahe_he();
 {
@@ -61,7 +53,7 @@ void laugh();
   ha_ha();
   ha_hahe_he();
   pause_for_dramatic_effect();
-  he_he(); 
+  he_he();
 }
 
 void stop_laughing();

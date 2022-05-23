@@ -20,4 +20,3 @@ jobs:
         uses: actions/setup-python@v3
       - name: clang format check
         run: ./script/run-clang-format.py -rl .
-        continue-on-error: true
