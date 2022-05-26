@@ -5,46 +5,52 @@
 
 #include "splashkit.h"
 
-void short_signal() {
-  play_sound_effect("dit");
-  delay(200);
+void short_signal()
+{
+    play_sound_effect("dit");
+    delay(200);
 }
 
-void long_signal() {
-  play_sound_effect("dah");
-  delay(600);
+void long_signal()
+{
+    play_sound_effect("dah");
+    delay(600);
 }
 
-void signal_c() {
-  delay(600);
-  long_signal();
-  short_signal();
-  long_signal();
-  short_signal();
+void signal_c()
+{
+    delay(600);
+    long_signal();
+    short_signal();
+    long_signal();
+    short_signal();
 }
 
-void signal_q() {
-  delay(600);
-  long_signal();
-  long_signal();
-  short_signal();
-  long_signal();
+void signal_q()
+{
+    delay(600);
+    long_signal();
+    long_signal();
+    short_signal();
+    long_signal();
 }
 
-void load_sounds() {
-  load_sound_effect("dah", "dah.wav");
-  load_sound_effect("dit", "dit.wav");
+void load_sounds()
+{
+    load_sound_effect("dah", "dah.wav");
+    load_sound_effect("dit", "dit.wav");
 }
 
-int main() {
-  open_audio();
+int main()
+{
+    open_audio();
 
-  load_sounds();
+    load_sounds();
 
-  signal_c();
-  signal_q();
+    signal_c();
+    signal_q();
 
-  close_audio();
+    close_audio();
 
-  return 0;
+    return 0;
 }

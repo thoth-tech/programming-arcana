@@ -9,10 +9,11 @@ void say_hello() { write_line("Hello..."); }
 
 void say_is_anyone_there() { write_line("Is anyone there?"); }
 
-int main() {
-  say_hello();
-  say_hello();
-  say_is_anyone_there();
+int main()
+{
+    say_hello();
+    say_hello();
+    say_is_anyone_there();
 
-  return 0;
+    return 0;
 }

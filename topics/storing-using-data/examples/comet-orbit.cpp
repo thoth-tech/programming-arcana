@@ -19,31 +19,34 @@
 const float SCREEN_SCALE_FACTOR = 800.0f / MAX_DISTANCE;
 
 // r = ed / (1 + e sin(angle) )
-float hale_bopp_r(float angle) {
-  return ECCENTRICITY * DISTANCE_POLE_DIRECTRIX /
-         (1 + ECCENTRICITY * sine(angle));
+float hale_bopp_r(float angle)
+{
+    return ECCENTRICITY * DISTANCE_POLE_DIRECTRIX /
+           (1 + ECCENTRICITY * sine(angle));
 }
 
-float comet_y_to_screen_x(float y) {
-  float result;
+float comet_y_to_screen_x(float y)
+{
+    float result;
 
-  // Scale to screen coordinates... reverse sign (- to +)
-  result = y * -SCREEN_SCALE_FACTOR;
+    // Scale to screen coordinates... reverse sign (- to +)
+    result = y * -SCREEN_SCALE_FACTOR;
 
-  // Translate so 0,0 is at SUN_X,SUNY
-  result = result + SUN_X;
+    // Translate so 0,0 is at SUN_X,SUNY
+    result = result + SUN_X;
 
-  return result;
+    return result;
 }
 
-float comet_x_to_screen_y(float x) {
-  float result;
+float comet_x_to_screen_y(float x)
+{
+    float result;
 
-  // Scale to screen coordinates
-  result = x * SCREEN_SCALE_FACTOR;
+    // Scale to screen coordinates
+    result = x * SCREEN_SCALE_FACTOR;
 
-  // Translate so 0,0 is at SUN_X,SUNY
-  result = result + SUN_Y;
+    // Translate so 0,0 is at SUN_X,SUNY
+    result = result + SUN_Y;
 
-  return result;
+    return result;
 }

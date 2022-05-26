@@ -3,12 +3,13 @@
  * Test the ++ and -- operations.
  */
 
-int main() {
-  int val = 10;
+int main()
+{
+    int val = 10;
 
-  ++val;
+    ++val;
 
-  write_line(val);
+    write_line(val);
 
-  return 0;
+    return 0;
 }

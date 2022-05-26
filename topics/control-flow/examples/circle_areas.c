@@ -14,20 +14,22 @@
 
 double circle_area(double radius) { return PI * radius * radius; }
 
-int main() {
-  double radius;
+int main()
+{
+    double radius;
 
-  printf("Circle Areas\n");
-  printf("-----------------\n");
+    printf("Circle Areas\n");
+    printf("-----------------\n");
 
-  radius = START_RADIUS;
+    radius = START_RADIUS;
 
-  while (radius <= END_RADIUS) {
-    printf(" Radius: %4.2f = %4.2f\n", radius, circle_area(radius));
-    radius = radius + RADIUS_INC;
-  }
+    while (radius <= END_RADIUS)
+    {
+        printf(" Radius: %4.2f = %4.2f\n", radius, circle_area(radius));
+        radius = radius + RADIUS_INC;
+    }
 
-  printf("-----------------\n");
+    printf("-----------------\n");
 
-  return 0;
+    return 0;
 }

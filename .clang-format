@@ -1,3 +1,13 @@
 ---
 Language: Cpp
 BasedOnStyle: Google
+AllowShortEnumsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AlignTrailingComments: false
+BraceWrapping:
+  AfterControlStatement: MultiLine
+  AfterFunction: true
+  AfterUnion: true
+  BeforeElse: true
+BreakBeforeBraces: Allman
+IndentWidth: 4

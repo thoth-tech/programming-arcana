@@ -11,9 +11,10 @@
 // In this case there is a DEG_TO_RAD "constant"
 const float DEG_TO_RAD = PI / 180;
 
-int main() {
-  write_line(PI);
-  write_line(DEG_TO_RAD);
+int main()
+{
+    write_line(PI);
+    write_line(DEG_TO_RAD);
 
-  return 0;
+    return 0;
 }

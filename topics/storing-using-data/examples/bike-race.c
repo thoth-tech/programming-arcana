@@ -19,18 +19,20 @@
 
 // Calculate the distance travelled given acceleration and time
 // distance = ut + ((at^2) / 2)
-float distance_travelled(float initial_speed, float acceleration, float time) {
-  return (initial_speed * time) + ((acceleration * time * time) / 2);
+float distance_travelled(float initial_speed, float acceleration, float time)
+{
+    return (initial_speed * time) + ((acceleration * time * time) / 2);
 }
 
 // Calculate the x position of a bike accelerating at the given
 // acceleration for the duration of the race
-float bike_x_for_accel(float acceleration) {
-  float distance;
+float bike_x_for_accel(float acceleration)
+{
+    float distance;
 
-  distance = distance_travelled(0, acceleration, RACE_DURATION);
+    distance = distance_travelled(0, acceleration, RACE_DURATION);
 
-  return distance * X_SCALE_FACTOR;
+    return distance * X_SCALE_FACTOR;
 }
 
 // Come up with a random acceleration value for a bike between 0 and

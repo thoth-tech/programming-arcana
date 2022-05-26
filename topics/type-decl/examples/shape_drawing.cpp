@@ -24,33 +24,37 @@ const rectangle DRAWING_PAD = {61, 0, 790, 600};
 // =================
 
 // The Shape Type is one of these options
-typedef enum {
-  CIRCLE,
-  TRIANGLE,
-  RECTANGLE,
-  ELLIPSE,
-  // UNKNOWN
-  NONE
+typedef enum
+{
+    CIRCLE,
+    TRIANGLE,
+    RECTANGLE,
+    ELLIPSE,
+    // UNKNOWN
+    NONE
 } shape_type;
 
 // The Shape Data is either...
-typedef union {
-  rectangle rect;
-  circle circ;
-  rectangle ellipse;
-  triangle tri;
+typedef union
+{
+    rectangle rect;
+    circle circ;
+    rectangle ellipse;
+    triangle tri;
 } shape_data;
 
 // The shape records...
-typedef struct {
-  shape_type type;   // the option selected
-  color fill_color;  // the fill color
-  shape_data data;   // the shape's data
+typedef struct
+{
+    shape_type type;  // the option selected
+    color fill_color;  // the fill color
+    shape_data data;  // the shape's data
 } shape;
 
 // A Drawing records...
-typedef struct {
-  shape shapes[MAX_SHAPES];   // a number of shapes
-  int index;                  // the index of the last shape used
-  shape_type selected_shape;  // the selected shape type
+typedef struct
+{
+    shape shapes[MAX_SHAPES];  // a number of shapes
+    int index;  // the index of the last shape used
+    shape_type selected_shape;  // the selected shape type
 } drawing;
